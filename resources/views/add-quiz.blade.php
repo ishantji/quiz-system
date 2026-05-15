@@ -8,7 +8,7 @@
     <x-navbar name={{$name}}></x-navbar>
         <div class="bg-gray-100 flex flex-col items-center min-h-screen pt-5">
         <div @class(['bg-white', 'p-8', 'rounded-2xl', 'shadow-lg', 'w-full', 'max-w-sm'])>
-            @if (!session('quizDetails'))
+            @if(!session('quizDetails'))
             <h2 class="text-2xl text-center text-gray-800 mb-6">Add Quiz</h2>
             <form action="/add-quiz" method="get" class="space-y-4">
                 <div>
@@ -33,51 +33,52 @@
             @else
             <span class="text-green-500 font-bold">Quiz : {{session('quizDetails')->name}}</span>
              <h2 class="text-2xl text-center text-gray-800 mb-6">Add MCOs</h2>
-             <form action="" method="get" class="space-y-4">
+             <form action="/add-mcq" method="post" class="space-y-4">
+                @csrf
                 <div>
-                    <textarea name="question" id="" placeholder="Enter your question name" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('question')}}"></textarea>
+                    <textarea name="question"  placeholder="Enter your question name" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('question')}}"></textarea>
                     @error('question')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
                 <div>
-                    <input type="text" name="quiz" id="" placeholder="Enter first option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('first')}}">
-                    @error('first')
+                    <input type="text" name="a" placeholder="Enter first option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('a')}}">
+                    @error('a')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
                 <div>
-                    <input type="text" name="quiz" id="" placeholder="Enter second option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('second')}}">
-                    @error('second')
+                    <input type="text" name="b" placeholder="Enter second option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('b')}}">
+                    @error('b')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
                 <div>
-                    <input type="text" name="quiz" id="" placeholder="Enter third option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('third')}}">
-                    @error('third')
+                    <input type="text" name="c" placeholder="Enter third option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('c')}}">
+                    @error('c')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
                 <div>
-                    <input type="text" name="quiz" id="" placeholder="Enter forth option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('forth')}}">
-                    @error('forth')
+                    <input type="text" name="d" placeholder="Enter forth option" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('d')}}">
+                    @error('d')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
                 <div>
-                    <select name="right_answer" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('right_answer')}}">
+                    <select name="correct_ans" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none" value="{{old('correct_ans')}}">
                         <option value="">-Select Right Answer-</option>
                         <option value="a">A</option>
                         <option value="b">B</option>
                         <option value="c">C</option>
                         <option value="d">D</option>
                     </select>
-                    @error('right_answer')
+                    @error('correct_ans')
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
-                <button type="submit" class="w-full px-4 py-2 bg-blue-500 rounded-xl text-white">Add More</button>
-                <button type="submit" class="w-full px-4 py-2 bg-green-500 rounded-xl text-white">Add and Next</button>
+                <button type="submit" name="submit" value="add_more" class="w-full px-4 py-2 bg-blue-500 rounded-xl text-white">Add More</button>
+                <button type="submit" value="done" class="w-full px-4 py-2 bg-green-500 rounded-xl text-white">Add and Submit</button>
              </form>
             @endif
         </div>
