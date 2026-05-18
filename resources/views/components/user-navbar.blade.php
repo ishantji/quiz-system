@@ -4,7 +4,7 @@
             Quiz System
         </div>
         <div class="space-x-4">
-            <a class="text-green-900 hover:text-blue-400" href="/dashboard">Home</a>
+            <a class="text-green-900 hover:text-blue-400" href="/">Home</a>
             <a class="text-green-900 hover:text-blue-400" href="/admin-categories">Categories</a>
             <a class="text-green-900 hover:text-blue-400" href="">Login</a>
             <a class="text-green-900 hover:text-blue-400" href="/admin-logout">Blog</a>
