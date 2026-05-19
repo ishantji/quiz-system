@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Admin Dashboard</title>
+    <title>User Homepage</title>
     @vite('resources/css/app.css')
 </head>
 <body>
