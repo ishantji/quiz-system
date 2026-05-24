@@ -30,4 +30,14 @@ class UserController extends Controller
         $quizName = $name;
         return view('start-quiz',['quizCount' => $quizCount,'quizName' => $quizName]);
     }
+
+    function userSignup(Request $request)
+    {
+        //return $request;
+        $request->validate([
+            'name' => 'required | min:3',
+            'email' => 'required | email',
+            'password' => 'required | min:3 | confirmed',
+        ]);
+    }
 }
