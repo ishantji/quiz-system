@@ -35,7 +35,6 @@ class UserController extends Controller
 
     function userSignup(Request $request)
     {
-        //return $request;
         $validate = $request->validate([
             'name' => 'required | min:3',
             'email' => 'required | email | unique:users',
@@ -56,7 +55,24 @@ class UserController extends Controller
 
         if($user) {
             Session::put('user',$user);
+            if(Session::has('quiz_url')){
+                $url = Session::get('quiz_url');
+                Session::forget('quiz_url');
+                return redirect($url);
+            }
             return redirect('/');
         }
+    }
+
+    function userLogout()
+    {
+        Session::forget('user');
+        return redirect('/');
+    }
+
+    function userSignupQuiz()
+    {
+        Session::put('quiz_url',url()->previous());
+        return view('/user-signup');
     }
 }

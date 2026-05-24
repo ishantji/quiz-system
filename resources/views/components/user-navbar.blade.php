@@ -6,9 +6,14 @@
         <div class="space-x-4">
             <a class="text-green-900 hover:text-blue-400" href="/">Home</a>
             <a class="text-green-900 hover:text-blue-400" href="/admin-categories">Categories</a>
+            @if(session('user'))
+            <a class="text-green-900 hover:text-blue-400" href="">Welcome, {{session('user')->name}}</a>
+            <a class="text-green-900 hover:text-blue-400" href="/user-logout">Logout</a>
+            @else
             <a class="text-green-900 hover:text-blue-400" href="">Login</a>
             <a class="text-green-900 hover:text-blue-400" href="/user-signup">Signup</a>
-            <a class="text-green-900 hover:text-blue-400" href="/admin-logout">Blog</a>
+            @endif
+            <a class="text-green-900 hover:text-blue-400" href="/blogst">Blog</a>
         </div>
     </div>
 </nav>
