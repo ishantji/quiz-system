@@ -24,7 +24,8 @@
         @if(session('user'))
         <a type="submit" href="/user-signup" class="px-4 py-2 my-3 bg-green-500 rounded-md text-white">Start</a>
         @else
-        <a type="submit" href="/user-signup-quiz" class="px-4 py-2 my-3 bg-blue-500 rounded-md text-white">Login/Signup for Start Quiz</a>
+        <a type="submit" href="/user-signup-quiz" class="px-4 py-2 my-3 bg-blue-500 rounded-md text-white">Signup for Start Quiz</a>
+        <a type="submit" href="/user-login-quiz" class="px-4 py-2 my-3 bg-blue-500 rounded-md text-white">Login for Start Quiz</a>
         @endif
     </div>
         <x-footer-user></x-footer-user>
