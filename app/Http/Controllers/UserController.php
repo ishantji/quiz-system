@@ -119,6 +119,28 @@ class UserController extends Controller
 
     function mcq($id,$name)
     {
-        return view('mcq-page',['name' => $name]);
+        $currentQuiz = [];
+        $currentQuiz['totalMcq']=MCQ::where('quiz_id',Session::get('firstMCQ')->quiz_id)->count();
+        $currentQuiz['currentMcq']=1;
+        $currentQuiz['quizname']=$name;
+        $currentQuiz['quizId']=Session('firstMCQ')->quiz_id;
+        Session::put('currentQuiz',$currentQuiz);
+        $mcqData=MCQ::find($id);
+        return view('mcq-page',['quizName' => $name,'mcqData'=>$mcqData]);
+    }
+
+    function submitAndNext($id){
+        $currentQuiz = Session::get('currentQuiz');
+        $currentQuiz['currentMcq']+=1;
+        $mcqData = MCQ::where([
+            ['id','>',$id],
+            ['quiz_id','=',$currentQuiz['quizId']]
+        ])->first();
+        Session::put('currentQuiz',$currentQuiz);
+        if($mcqData){
+            return view('mcq-page',['quizName' => $currentQuiz['quizname'],'mcqData'=>$mcqData]);
+        } else {
+            return 'result Page';
+        }
     }
 }
