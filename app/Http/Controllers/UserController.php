@@ -11,6 +11,7 @@ use App\Models\Quiz;
 use App\Models\Mcq;
 use App\Models\User;
 use App\Models\Record;
+use App\Models\Mcq_record;
 
 
 class UserController extends Controller
@@ -130,6 +131,7 @@ class UserController extends Controller
             $currentQuiz['currentMcq']=1;
             $currentQuiz['quizname']=$name;
             $currentQuiz['quizId']=Session('firstMCQ')->quiz_id;
+            $currentQuiz['recordId']=$record->id;
             Session::put('currentQuiz',$currentQuiz);
             $mcqData=MCQ::find($id);
             return view('mcq-page',['quizName' => $name,'mcqData'=>$mcqData]);
@@ -139,7 +141,7 @@ class UserController extends Controller
 
     }
 
-    function submitAndNext($id){
+    function submitAndNext(Request $request, $id){
         $currentQuiz = Session::get('currentQuiz');
         $currentQuiz['currentMcq']+=1;
         $mcqData = MCQ::where([
@@ -147,10 +149,24 @@ class UserController extends Controller
             ['quiz_id','=',$currentQuiz['quizId']]
         ])->first();
         Session::put('currentQuiz',$currentQuiz);
-        if($mcqData){
+        $mcq = new Mcq_record();
+        $mcq->record_id = $currentQuiz['recordId'];
+        $mcq->user_id = Session::get('user')->id;   
+        $mcq->mcq_id = $request->id;
+        $mcq->select_answer = MCQ::find($id)->correct_ans;
+        if(MCQ::find($id)->correct_ans == $request->option) {
+            $mcq->is_correct = 1;
+        } else {
+            $mcq->is_correct = 0; 
+        }
+        if($mcq->save()) {
+            if($mcqData){
             return view('mcq-page',['quizName' => $currentQuiz['quizname'],'mcqData'=>$mcqData]);
         } else {
             return 'result Page';
+        }
+        } else {
+            return "Something went wrong";
         }
     }
 }
